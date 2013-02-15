@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>/Users/fbasrawala/Sites/chat/chat/message/list Demo</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+        </style>
+	</head>
+	<body>
+	    <h1>/Users/fbasrawala/Sites/chat/chat/message/list Demo</h1>
+		<ul id='messages'></ul>
+		<a href='javascript://' id='create'>Create Message</a>
+		<script type='text/javascript' 
+                src='../../../steal/steal.js'>
+        </script>
+		<script type='text/javascript'>
+			steal(
+				'/Users/fbasrawala/Sites/chat/chat/message/list', 
+				'/Users/fbasrawala/Sites/chat/chat/models/message.js',
+          		'/Users/fbasrawala/Sites/chat/chat/models/fixtures',
+          		function(MessageList, Message){
+				
+				new MessageList('#messages');
+				
+				$('#create').click(function(){
+					new Message({
+						name: "Grilled Cheese",
+						description: "Bread and Cheese"
+					}).save();
+				})
+			})
+		</script>
+	</body>
+</html>

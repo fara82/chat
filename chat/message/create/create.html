@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>/Users/fbasrawala/Sites/chat/chat/message/create</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+        </style>
+	</head>
+	<body>
+	    <h1>/Users/fbasrawala/Sites/chat/chat/message/create Demo</h1>
+		<form id='create' action=''></form>
+		<div id='messages'></div>
+		<script type='text/javascript' 
+                src='../../../steal/steal.js'>
+        </script>
+		<script type='text/javascript'>
+		steal(
+			'/Users/fbasrawala/Sites/chat/chat/message/create',
+			'/Users/fbasrawala/Sites/chat/chat/models/message.js',
+          	'/Users/fbasrawala/Sites/chat/chat/models/fixtures',
+          	function(MessageCreate, Message){
+				
+				new MessageCreate('#create');
+				Message.bind('created', function(ev, message){
+					$('<div>').html("<h3>"+message.name+"</h3><p>"+message.description+"</p>")
+					        .appendTo( $('#messages') )
+				})
+				
+			})
+		</script>
+	</body>
+</html>
