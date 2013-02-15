@@ -4,3 +4,6 @@
 [submodule "canjs"]
 	path = canjs
 	url = https://github.com/bitovi/canjs.git
+[submodule "javascriptmvc"]
+	path = javascriptmvc
+	url = git://github.com/bitovi/javascriptmvc.git
