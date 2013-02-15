@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>chat/message/create</title>
+        <style type='text/css'>
+            body {font-family: verdana}
+        </style>
+	</head>
+	<body>
+	    <h1>chat/message/create Demo</h1>
+		<form id='create' action=''></form>
+		<div id='messages'></div>
+		<script type='text/javascript' 
+                src='../../../steal/steal.js'>
+        </script>
+		<script type='text/javascript'>
+		steal(
+			'chat/message/create',
+			'chat/models/message.js',
+          	'chat/models/fixtures',
+          	function(MessageCreate, Message){
+				
+				new MessageCreate('#create');
+				Message.bind('created', function(ev, message){
+					$('<div>').html("<h3>"+message.name+"</h3><p>"+message.description+"</p>")
+					        .appendTo( $('#messages') )
+				})
+				
+			})
+		</script>
+	</body>
+</html>
