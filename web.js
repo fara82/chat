@@ -5,7 +5,8 @@ app.listen(5000);
 
 // routing
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
+	console.log(__dirname);
+  res.sendfile(__dirname + '/chat/index.html');
 });
 
 // usernames which are currently connected to the chat
