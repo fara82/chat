@@ -17,6 +17,14 @@ app.get('/chat', function (req, res) {
   res.sendfile(__dirname + '/chat/index.html');
 });
 
+app.get('/messages', function (req, res) {
+	console.log('messages');
+});
+
+app.post('/messages', function (req, res) {
+	console.log('messages');
+});
+
 // usernames which are currently connected to the chat
 var usernames = {};
 
