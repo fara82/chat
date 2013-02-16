@@ -11,10 +11,7 @@ steal('can', function (can) {
 	/* @static */
 	{
 		findAll : "GET /messages",
-		findOne : "GET /messages/{id}",
-		create : "POST /messages",
-		update : "PUT /messages/{id}",
-		destroy : "DELETE /messages/{id}"
+		create : "POST /messages"
 	},
 	/* @Prototype */
 	{});

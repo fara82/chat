@@ -1,11 +1,19 @@
-var app = require('express').createServer()
+
+var express = require('express');
+var app = express.createServer()
 var io = require('socket.io').listen(app);
+
+
+app.use(express.static(__dirname + '/'));
+
+console.log('dirname', __dirname);
+
 
 app.listen(5000);
 
-// routing
-app.get('/', function (req, res) {
-	console.log(__dirname);
+//routing
+app.get('/chat', function (req, res) {
+	console.log(__dirname + '/chat/index.html');
   res.sendfile(__dirname + '/chat/index.html');
 });
 
