@@ -1,16 +1,4 @@
-<!--<script src="./node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js"></script>
-<script>
-
-  var socket = io.connect();
-  socket.on('news', function (data) {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
-  });
-</script>
--->
-
-<html>			
-<script src="./node_modules/socket.io/node_modules/socket.io-client/dist/socket.io.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 <script>
 	var socket = io.connect('http://localhost:5000');
@@ -63,4 +51,3 @@
 	<input id="data" style="width:200px;" />
 	<input type="button" id="datasend" value="send" />
 </div>
-</html>
