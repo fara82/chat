@@ -7,6 +7,4 @@ function(MessageCreate, MessageList){
 	
 	new MessageList('#messages');
 	new MessageCreate('#create');
-	new MessageList('#messages');
-	new MessageCreate('#create');
 })

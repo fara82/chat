@@ -1,4 +1,4 @@
-steal('can', 'chat/models/message.js', './init.ejs', 'jquery/dom/form_params',
+steal('can', 'chat/models/message.js', './init.ejs', 'jquerypp/dom/form_params',
 	function (can, Message, initEJS) {
 
 	/**
@@ -17,6 +17,7 @@ steal('can', 'chat/models/message.js', './init.ejs', 'jquery/dom/form_params',
 		submit: function (el, ev) {
 			ev.preventDefault();
 			el.find('[type=submit]').val('Creating...')
+			
 			new Message(el.formParams()).save(function() {
 				el.find('[type=submit]').val('Create');
 				el[0].reset()
