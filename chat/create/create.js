@@ -1,5 +1,5 @@
-steal('can', 'chat/models/message.js', './init.ejs', 'jquerypp/dom/form_params',
-	function (can, Message, initEJS) {
+steal('can', 'jquerypp/dom/form_params',
+	function (can) {
 
 	/**
 	 * @class chat/message/create
@@ -9,16 +9,27 @@ steal('can', 'chat/models/message.js', './init.ejs', 'jquerypp/dom/form_params',
 	 * Creates messages
 	 */
 	return can.Control(
+	/** @Static */
+	{
+		defaults : {
+			Model : new can.Model(),
+			template: false,
+			templateOptions: {}
+		}
+	},
 	/** @Prototype */
 	{
 		init: function () {
-			this.element.html(initEJS());
+			var options = this.options;
+			if (options.template) {
+				this.element.html(options.template(options.templateOptions));
+			}
 		},
 		submit: function (el, ev) {
 			ev.preventDefault();
 			el.find('[type=submit]').val('Creating...')
 			
-			new Message(el.formParams()).save(function() {
+			new this.options.Model(el.formParams()).save(function() {
 				el.find('[type=submit]').val('Create');
 				el[0].reset()
 			});

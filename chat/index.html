@@ -1,7 +1,7 @@
 <html>
 	<div class="users">
 		<b>USERS</b>
-		<div id="users"></div>
+		<ul id="users"></ul>
 	</div>
 	<div class="right-pane">
 		<h2>Conversation</h2>
@@ -9,42 +9,61 @@
 			<ul id='messages'></ul>
 
 		</div>
-		<form id='create' action=''></form>
+		<form id='create-message' action=''></form>
 	</div>
-	
 	
 	<script src='/steal/steal.js'></script>
 	<script src='/socket.io/socket.io.js'></script>
 	<script>
 		steal(
-			'chat/message/create',
+			'chat/create',
 			'chat/list',
 			'chat/models/message.js',
+			'chat/models/user.js',
+			'chat/message/create.ejs',
+			'chat/message/list.ejs',
+			'chat/user/create.ejs',
+			'chat/user/list.ejs',
 			'chat/chat.less',
 			//'./models/fixtures/fixtures.js',
-		function(MessageCreate, MessageList, Message){
+		function(CreateControl, ListControl, Message, User, CreateMessageEJS, ListMessageEJS, CreateUserEJS, ListUserEJS){
 
 			var socket = io.connect('http://localhost:5000'),
-				messageList = new Message.List(),
-				userList = new Message.List();
+				messageList = new Message.List,
+				userList = new User.List;
 
-			new MessageList('#messages', {
-				list : messageList
+			//on connection to server, ask for user's name with an anonymous callback
+			socket.on('connect', function(){
+				socket.emit('adduser', prompt("What's your username?"));
 			});
 
-			new MessageList('#users', {
-				list : userList
+			socket.on('loadchat', function(un){
+
+				if (un) {
+					// message list control
+					new ListControl('#messages', {
+						list : messageList,
+						template: ListMessageEJS,
+						Model: Message
+					});
+
+					// user list control
+					new ListControl('#users', {
+						list : userList,
+						template: ListUserEJS,
+						Model: User
+					});
+
+					// Create message control
+					new CreateControl('#create-message', { 
+						Model: Message, 
+						template: CreateMessageEJS,
+						templateOptions: {
+							username: un
+						} 
+					});
+				}
 			});
-
-			new MessageCreate('#create');
-
-			
-
-			// on connection to server, ask for user's name with an anonymous callback
-			// socket.on('connect', function(){
-			// 	// call the server-side function 'adduser' and send one parameter (value of prompt)
-			// 	socket.emit('adduser', prompt("What's your name?"));
-			// });
 
 			// listener, whenever the server emits 'updatechat', this updates the chat body
 			socket.on('updatechat', function () {

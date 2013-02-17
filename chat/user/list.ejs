@@ -1,0 +1,5 @@
+<% this.each(function(current) { %>
+	<li class="user" <%= (el) -> el.data('user', current) %>>
+    <span><% console.log(current) %></span>
+	</li>
+<% }) %>
