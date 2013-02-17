@@ -1,28 +1,59 @@
 <html>
-	<div>
+	<div class="users">
 		<b>USERS</b>
 		<div id="users"></div>
 	</div>
-	<div> 
+	<div class="right-pane">
 		<h2>Conversation</h2>
-		<ul id='messages'></ul>
-	</div>
+		<div class="convo"> 
+			<ul id='messages'></ul>
 
-	<form id='create' action=''></form>
-	<script src='/steal/steal.js?chat'></script>
+		</div>
+		<form id='create' action=''></form>
+	</div>
+	
+	
+	<script src='/steal/steal.js'></script>
 	<script src='/socket.io/socket.io.js'></script>
 	<script>
-		var socket = io.connect('http://localhost:5000');
+		steal(
+			'chat/message/create',
+			'chat/list',
+			'chat/models/message.js',
+			'chat/chat.less',
+			//'./models/fixtures/fixtures.js',
+		function(MessageCreate, MessageList, Message){
 
-		// on connection to server, ask for user's name with an anonymous callback
-		socket.on('connect', function(){
-			// call the server-side function 'adduser' and send one parameter (value of prompt)
-			socket.emit('adduser', prompt("What's your name?"));
-		});
+			var socket = io.connect('http://localhost:5000'),
+				messageList = new Message.List(),
+				userList = new Message.List();
 
-		// listener, whenever the server emits 'updatechat', this updates the chat body
-		socket.on('updatechat', function (username, data) {
-			//$('#conversation').append('<b>'+username + ':</b> ' + data + '<br>');
+			new MessageList('#messages', {
+				list : messageList
+			});
+
+			new MessageList('#users', {
+				list : userList
+			});
+
+			new MessageCreate('#create');
+
+			
+
+			// on connection to server, ask for user's name with an anonymous callback
+			// socket.on('connect', function(){
+			// 	// call the server-side function 'adduser' and send one parameter (value of prompt)
+			// 	socket.emit('adduser', prompt("What's your name?"));
+			// });
+
+			// listener, whenever the server emits 'updatechat', this updates the chat body
+			socket.on('updatechat', function () {
+				messageList.replace(Message.findAll());
+			});
+
+			socket.on('updateusers', function () {
+				userList.replace(User.findAll());
+			});
 		});
 
 	</script>

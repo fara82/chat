@@ -11,15 +11,15 @@ function (can, initEJS, Message) {
 	/** @Static */
 	{
 		defaults : {
-			Message: Message
+			Message: Message,
+			list: new Message.List()
 		}
 	},
 	/** @Prototype */
 	{
 		init: function () {
-			this.list = new Message.List();
-			this.element.html(initEJS(this.list));
-			this.list.replace(Message.findAll());
+			this.element.html(initEJS(this.options.list));
+			this.options.list.replace(Message.findAll());
 		},
 		'.destroy click': function (el) {
 			if (confirm("Are you sure you want to destroy?")) {
@@ -27,7 +27,8 @@ function (can, initEJS, Message) {
 			}
 		},
 		"{Message} created": function (Model, ev, instance) {
-			this.list.push(instance);
+			//alert('message created');
+			this.options.list.push(instance);
 		}
 	});
 });
