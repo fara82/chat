@@ -9,7 +9,7 @@ app.use(express.bodyParser());
 
 // io is the Socket.IO server object
 io.configure(function () { 
-  io.set("transports", ["xhr-polling"]); 
+  io.set("transports", ["jsonp-polling"]); 
   io.set("polling duration", 10); 
 });
 
