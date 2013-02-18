@@ -5,7 +5,7 @@ var Message = can.Model(
         findAll : "GET /messages",
         create : function(attrs) {
         	$.post('/messages', attrs)
-        	return $.Defferred()
+        	return $.Deferred()
         }
 	},
 	/* @Prototype */
