@@ -11,7 +11,7 @@ app.use(express.bodyParser());
 io.configure(function () { 
   io.set("transports", ["jsonp-polling"]); 
   io.set("polling duration", 10); 
-  io.set( 'origins', '*jsfiddle.net*:*' );
+  io.set( 'origins', '*fiddle.jshell.net*:*' );
 });
 
 app.listen(process.env.PORT || 5000);
