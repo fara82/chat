@@ -1,9 +1,9 @@
-
 var express = require('express'),
 	app = express.createServer(),
 	socket = require('socket.io'),
 	io = socket.listen(app);
 
+// set up static dir
 app.use(express.static(__dirname + '/'));
 app.use(express.bodyParser());
 
@@ -13,9 +13,9 @@ io.configure(function () {
   io.set("polling duration", 10); 
 });
 
-app.listen(5000);
+app.listen(process.env.PORT || 5000);
 
-// usernames which are currently connected to the chat	
+// messages array
 var messages = [],
 	id=0; 
 
@@ -24,7 +24,7 @@ app.get('/messages', function (req, res) {
 	res.send(messages);
 });
 
-// add chat message
+// add a message to the list
 app.post('/messages', function (req, res) {
 	var message = {
 		id: ++id,
@@ -39,9 +39,4 @@ app.post('/messages', function (req, res) {
 
 	io.sockets.emit('message-created', message); 
 	res.send(message);
-});
-
-// find all users
-app.get('/users', function (req, res) {
-	res.send(users);
 });
